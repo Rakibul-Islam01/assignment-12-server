@@ -30,6 +30,7 @@ async function run() {
   try {
 
     const usersCollection = client.db('draw-verse').collection('users')
+    const allClassesCollection = client.db('draw-verse').collection('allclasses')
 
 
     // put user data in database
@@ -44,6 +45,8 @@ async function run() {
       const result = await usersCollection.updateOne(query, updateDoc, options)
       res.send(result)
     })
+
+
 
     // get the users data from database
     // app.get("/users", async (req, res) => {
@@ -89,6 +92,14 @@ async function run() {
       res.send(result)
     })
 
+
+    // post classes to server by instructor
+    app.post('/allclasses', async(req, res) =>{
+      const allclasses = req.body;
+      // console.log(allclasses)
+      const result = await allClassesCollection.insertOne(allclasses)
+      res.send(result)
+    })
 
 
 
