@@ -47,7 +47,6 @@ async function run() {
     })
 
 
-
     // get the users data from database
     // app.get("/users", async (req, res) => {
     //   const result = await usersCollection.find().toArray();
@@ -79,6 +78,8 @@ async function run() {
       res.send(result)
     })
 
+
+
     // update the user's role to instructor by admin
     app.patch('/users/instructor/:id', async (req, res) => {
       const id = req.params.id;
@@ -91,6 +92,22 @@ async function run() {
       const result = await usersCollection.updateOne(filter, updateDoc)
       res.send(result)
     })
+
+    
+    // update the status by admin
+    app.patch("/allclasses/:id", async (req, res) =>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const updateDoc = {
+        $set: {
+          status: 'approved'
+        }
+      }
+      const result = await allClassesCollection.updateOne(filter, updateDoc)
+      res.send(result)
+    })
+
+
 
 
     // post classes to server by instructor
