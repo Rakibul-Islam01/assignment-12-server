@@ -108,8 +108,6 @@ async function run() {
     })
 
 
-
-
     // post classes to server by instructor
     app.post('/allclasses', async(req, res) =>{
       const allclasses = req.body;
@@ -117,6 +115,7 @@ async function run() {
       const result = await allClassesCollection.insertOne(allclasses)
       res.send(result)
     })
+
 
     // find all classes that all the instructors added
     app.get('/allclasses', async (req, res) =>{
@@ -136,6 +135,15 @@ async function run() {
       res.send(result)
     })
 
+
+    app.get("/instructor/", async (req, res) => {
+      let query = {};
+      if (req.query?.role) {
+        query = {role: req.query.role }
+      }
+      const result = await usersCollection.find(query).toArray();
+      res.send(result)
+    })
 
 
     // Send a ping to confirm a successful connection
