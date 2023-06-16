@@ -136,6 +136,7 @@ async function run() {
     })
 
 
+    // find all the instructor
     app.get("/instructor/", async (req, res) => {
       let query = {};
       if (req.query?.role) {
@@ -144,6 +145,19 @@ async function run() {
       const result = await usersCollection.find(query).toArray();
       res.send(result)
     })
+
+  
+    // find all the approved classes
+    app.get("/classes/", async (req, res) => {
+      let query ={};
+      if(req.query?.status){
+        query = {status: req.query.status}
+      }
+      const result = await allClassesCollection.find(query).toArray();
+      res.send(result)
+    })
+
+
 
 
     // Send a ping to confirm a successful connection
