@@ -66,7 +66,7 @@ async function run() {
     })
 
 
-    // update the user's role by admin
+    // update the user's role to admin by admin
     app.patch('/users/admin/:id', async (req, res) => {
       const id = req.params.id;
       const filter = { _id: new ObjectId(id) }
@@ -101,6 +101,23 @@ async function run() {
       res.send(result)
     })
 
+    // find all classes that all the instructors added
+    app.get('/allclasses', async (req, res) =>{
+      const allclasses = req.body;
+      const result = await allClassesCollection.find().toArray();
+      res.send(result)
+    })
+
+
+    // find the classes that instructor (only his) added
+    app.get('/myclasses', async (req, res) =>{
+      let query = {}
+      if(req.query?.userEmail){
+        query = {userEmail: req.query.userEmail}
+      }
+      const result = await allClassesCollection.find(query).toArray()
+      res.send(result)
+    })
 
 
 
