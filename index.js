@@ -101,6 +101,20 @@ async function run() {
     })
 
 
+     // update the status by admin to deny
+     app.patch("/allclasses/deny/:id", async (req, res) =>{
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)}
+      const updateDoc = {
+        $set: {
+          status: 'denied'
+        }
+      }
+      const result = await allClassesCollection.updateOne(filter, updateDoc)
+      res.send(result)
+    })
+
+
     // post classes to server by instructor
     app.post('/allclasses', async(req, res) =>{
       const allclasses = req.body;
@@ -149,8 +163,6 @@ async function run() {
       const result = await allClassesCollection.find(query).toArray();
       res.send(result)
     })
-
-
 
 
     // Send a ping to confirm a successful connection
