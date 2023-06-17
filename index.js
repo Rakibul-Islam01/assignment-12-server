@@ -14,7 +14,6 @@ app.use(cors(corsOptions))
 app.use(express.json())
 
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb')
-// const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.mq0mae1.mongodb.net/?retryWrites=true&w=majority`
 
 const uri = `mongodb+srv://${process.env.DB_user}:${process.env.DB_pass}@cluster0.03ostmu.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -46,12 +45,6 @@ async function run() {
       res.send(result)
     })
 
-
-    // get the users data from database
-    // app.get("/users", async (req, res) => {
-    //   const result = await usersCollection.find().toArray();
-    //   res.send(result)
-    // })
 
 
     // find specific user
